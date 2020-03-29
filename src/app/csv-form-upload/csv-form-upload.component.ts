@@ -53,11 +53,17 @@ export class CsvFormUploadComponent {
     // TODO: Use EventEmitter with form value
     //console.warn(this.uploadForm.value);
 
-    //To add logic that checks if form data exists ex: if(this.arrayValue['fileNeeders']){}if(this.arrayValue['fileCaretakers']){}
     console.log(this.arrayValue)
-    this.http.post<any>('http://c29a9953.ngrok.io/api/v1/NeedersLookingForMatch', this.arrayValue['fileNeeders']).subscribe(data => {
-      this.postId = data.id;
-  })    
+    if(this.arrayValue['fileNeeders']){
+      this.http.post<any>('http://c29a9953.ngrok.io/api/v1/NeedersLookingForMatch', this.arrayValue['fileNeeders']).subscribe(data => {
+        this.postId = data.id;
+    })
+    }
+    if(this.arrayValue['fileCaretakers']){
+      this.http.post<any>('http://c29a9953.ngrok.io/api/v1/CaretakersLookingForMatch', this.arrayValue['fileCaretakers']).subscribe(data => {
+        this.postId = data.id;
+    })
+    }  
     //console.log((this.uploadForm.get('fileNeeders').value))
     //console.log(this.fileChange(this.uploadForm.get('fileNeeders').value))
   }
